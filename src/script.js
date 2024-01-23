@@ -11,8 +11,50 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 // Object
-const geometry = new THREE.BoxGeometry(1, 1, 1)
-const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
+//const geometry = new THREE.BoxGeometry(1, 1, 1, 10, 10, 10)
+//1D array, but every three number start position of a new vertex
+// const positionsArray = new Float32Array(
+//     [
+//         0, 0, 0,
+//         0, 1, 0,
+//         1, 0, 0
+//     ])
+// Here we have to provide the dimension, here 3 cordinate for 1 vertex
+//const positionsAttribute = new THREE.BufferAttribute(positionsArray, 3)
+
+//const geometry = new THREE.BufferGeometry()
+//geometry.setAttribute('position', positionsAttribute)
+
+//we want to create a Triangle. So we must initial the positions of 3 verteces = point in 3D.
+// Position of vertece 1
+/*positionsArray[0] = 0
+positionsArray[1] = 0
+positionsArray[2] = 0
+//Position of vertece 1
+positionsArray[3] = 0
+positionsArray[4] = 1
+positionsArray[5] = 0
+//Position of vertece 1
+positionsArray[6] = 1
+positionsArray[7] = 0
+positionsArray[8] = 0*/
+
+const count = 100
+const positionsArray = new Float32Array(count * 3 * 3) // we want 50 veteces and each vertece has 3 coordinate so 3*3*50
+for (let i = 0; i<count*3*3; i++)
+{
+    positionsArray[i] = Math.random() - 0.5
+}
+
+const positionsAttribute = new THREE.BufferAttribute(positionsArray, 3)
+const geometry = new THREE.BufferGeometry()
+geometry.setAttribute('position', positionsAttribute)
+
+const material = new THREE.MeshBasicMaterial({ 
+    color: 0xff0000,
+    wireframe: true
+})
+
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
 
